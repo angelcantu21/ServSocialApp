@@ -43,7 +43,11 @@
 
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps"></activity>
+            android:label="@string/title_activity_maps" />
+        <activity
+            android:name=".AcercaActivity"
+            android:parentActivityName=".InicioActivity" />
+        <activity android:name=".CreditosActivity" android:parentActivityName=".InicioActivity"></activity>
     </application>
 
 </manifest>

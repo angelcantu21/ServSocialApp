@@ -91,34 +91,30 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btLogInButton:
-               /* if (!(user.getText().toString().equals("") && pass.getText().toString().equals(""))) {
+                if (!(user.getText().toString().equals("") && pass.getText().toString().equals(""))) {
                     //Mensaje de espera
                     loading = ProgressDialog.show(this, "Verificando datos", "Espere por favor...", false, false);
-                    String url_edit = "http://" + getString(R.string.url) + "ServSocial/ConsultarPersonaID.php?id=" + user.getText().toString();
+                    String url_edit = "http://" + getString(R.string.url) + "/ServSocial/login.php?correo=" + user.getText().toString()+"&password="+pass.getText().toString();
+                   // Toast.makeText(getApplicationContext(),url_edit, Toast.LENGTH_LONG).show();
                     jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url_edit, null, this, this);
                     requestQueue.add(jsonObjectRequest);
                 } else {
                     Toast.makeText(getApplicationContext(), "Datos vacios", Toast.LENGTH_LONG).show();
                 }
-*/
-                Intent start = new Intent(getApplicationContext(), InicioActivity.class);
-                startActivity(start);
-                GuardarEstado();
-                finish();
                 break;
         }
     }
 
     @Override
     public void onErrorResponse(VolleyError error) {
-        Toast.makeText(getApplicationContext(),"Datos incorrectos", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(),"Datos incorrectos"+error.toString(), Toast.LENGTH_LONG).show();
         login_correcto = false;
         loading.dismiss();
     }
 
     @Override
     public void onResponse(JSONObject response) {
-        JSONArray json=response.optJSONArray("personaRegistro");
+        JSONArray json=response.optJSONArray("personaregistro");
         JSONObject jsonObject=null;
 
         try {
