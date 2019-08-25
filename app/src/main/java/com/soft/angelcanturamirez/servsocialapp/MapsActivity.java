@@ -51,9 +51,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng majadera = new LatLng(25.632150, -100.272250);
         LatLng punto_medio = new LatLng(25.716014, -100.261396);
         //mMap.addMarker(new MarkerOptions().position(ute).title("UNIVERSIDAD TECNOLOGICA GRAL. MARIANO ESCOBEDO").icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
-        mMap.addMarker(new MarkerOptions().position(casa).title("MI CASA").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
-        mMap.addMarker(new MarkerOptions().position(mama).title("MAMA LINDA VISTA").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN)));
-        mMap.addMarker(new MarkerOptions().position(majadera).title("MAJADERA SOCIAL CLUB").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+        mMap.addMarker(new MarkerOptions().position(casa).title("Angel Cantu Ramirez").snippet("Estatus: Esperando").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+        mMap.addMarker(new MarkerOptions().position(mama).title("Brenda Mezquitic Gallardo").snippet("Estatus: En curso").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN)));
+        mMap.addMarker(new MarkerOptions().position(majadera).title("Gonzalo Cantu").snippet("Estatus: Esperando").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
         //locacionBar(26.208693, -98.179060, "Casa de McAllen");
         //locacionBar();
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(punto_medio, 10f));

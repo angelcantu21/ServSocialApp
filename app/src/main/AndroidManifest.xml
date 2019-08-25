@@ -47,7 +47,12 @@
         <activity
             android:name=".AcercaActivity"
             android:parentActivityName=".InicioActivity" />
-        <activity android:name=".CreditosActivity" android:parentActivityName=".InicioActivity"></activity>
+        <activity
+            android:name=".CreditosActivity"
+            android:parentActivityName=".InicioActivity" />
+        <activity android:name=".HistorialActivity"
+            android:parentActivityName=".InicioActivity"
+            android:label="Historial"></activity>
     </application>
 
 </manifest>

@@ -17,6 +17,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,16 +44,18 @@ import org.json.JSONObject;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class InicioActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,Response.ErrorListener, Response.Listener<JSONObject> {
+        implements NavigationView.OnNavigationItemSelectedListener,Response.ErrorListener, Response.Listener<JSONObject>, View.OnClickListener {
 
     RequestQueue requestQueue;
     JsonObjectRequest jsonObjectRequest;
-    CircleImageView fotoUsuario;
+    CircleImageView fotoUsuario,fotoUsuarioDetalles;
     String id_user="";
     SharedPreferences sharedPreferences;
     ProgressDialog loading;
     NavigationView navigationView;
     TextView txt_usuarioNombre, txt_apartamento;
+    EditText nombre, direccion, correo;
+    Button btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,9 +77,18 @@ public class InicioActivity extends AppCompatActivity
             }
         });*/
 
+        btn = (Button)findViewById(R.id.btnAyudar);
+
+        btn.setOnClickListener(this);
+
         txt_usuarioNombre = (TextView) header.findViewById(R.id.txtNombreUsuario);
         txt_apartamento = (TextView) header.findViewById(R.id.txtApartamento);
         fotoUsuario = (CircleImageView) header.findViewById(R.id.imageView);
+        fotoUsuarioDetalles = findViewById(R.id.imgUsuarioDetalles);
+
+        nombre = findViewById(R.id.txtNombreUsuarioDetalles);
+        direccion = findViewById(R.id.txtDepartamentoUsuarioDetalles);
+        correo = findViewById(R.id.txtCodigoUsuarioDetalles);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -135,14 +148,21 @@ public class InicioActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_inicio) {
             // Handle the camera action
             Intent start = new Intent(getApplicationContext(), InicioActivity.class);
             startActivity(start);
         } else if (id == R.id.nav_acerca) {
             Intent start = new Intent(getApplicationContext(), AcercaActivity.class);
             startActivity(start);
-        } else if (id == R.id.nav_creditos) {
+        }else if(id == R.id.nav_historial){
+            Intent start = new Intent(getApplicationContext(), HistorialActivity.class);
+            startActivity(start);
+        }else if(id == R.id.nav_mapa){
+            Intent start = new Intent(getApplicationContext(), MapsActivity.class);
+            startActivity(start);
+        }
+        else if (id == R.id.nav_creditos) {
             Intent start = new Intent(getApplicationContext(), CreditosActivity.class);
             startActivity(start);
         }else if(id==R.id.nav_sesion){
@@ -168,7 +188,7 @@ public class InicioActivity extends AppCompatActivity
 
     @Override
     public void onErrorResponse(VolleyError error) {
-        Toast.makeText(getApplicationContext(), ""+error.toString(),Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(), ""+error.toString(),Toast.LENGTH_LONG).show();
         Log.i("Error",error.toString());
     }
 
@@ -182,6 +202,11 @@ public class InicioActivity extends AppCompatActivity
                 jsonObject = json.getJSONObject(x);
                 txt_usuarioNombre.setText(jsonObject.optString("Nombre")+" "+jsonObject.optString("Apellidos"));
                 txt_apartamento.setText(jsonObject.optString("Correo"));
+
+                nombre.setText(txt_usuarioNombre.getText());
+                direccion.setText(jsonObject.optString("Direccion"));
+                correo.setText(jsonObject.optString("Correo"));
+
             }
 
             loading.dismiss();
@@ -199,6 +224,7 @@ public class InicioActivity extends AppCompatActivity
             @Override
             public void onResponse(Bitmap response) {
                 fotoUsuario.setImageBitmap(response);
+                fotoUsuarioDetalles.setImageBitmap(response);
                 loading.dismiss();
             }
         }, 0, 0, ImageView.ScaleType.CENTER, null, new Response.ErrorListener() {
@@ -208,5 +234,15 @@ public class InicioActivity extends AppCompatActivity
             }
         });
         requestQueue.add(imageRequest);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.btnAyudar:
+                Intent start = new Intent(getApplicationContext(), MapsActivity.class);
+                startActivity(start);
+                break;
+        }
     }
 }
